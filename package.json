@@ -1,0 +1,22 @@
+{
+  "name": "eslint-plugin-expires",
+  "version": "1.0.0",
+  "description": "An ESLint plugin that warns on and after a specified date/time ",
+  "main": "index.js",
+  "scripts": {
+    "test": "node expires.spec.js"
+  },
+  "keywords": [
+    "eslint",
+    "eslint-plugin",
+    "expires"
+  ],
+  "author": "Dilek Gencer",
+  "license": "MIT",
+  "peerDependencies": {
+    "eslint": "^1.10.3"
+  },
+  "devDependencies": {
+    "eslint": "^1.10.3"
+  }
+}
