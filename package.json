@@ -9,6 +9,7 @@
   "keywords": [
     "eslint",
     "eslint-plugin",
+    "eslintplugin",
     "expires"
   ],
   "author": "Dilek Gencer",
@@ -16,6 +17,14 @@
   "peerDependencies": {
     "eslint": "^1.10.3"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/digencer/eslint-plugin-expires"
+  },
+  "bugs": {
+    "url": "https://github.com/digencer/eslint-plugin-expires/issues"
+  },
+  "homepage": "https://github.com/digencer/eslint-plugin-expires#readme",
   "devDependencies": {
     "eslint": "^1.10.3"
   }

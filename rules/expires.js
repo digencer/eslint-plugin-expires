@@ -8,7 +8,7 @@ module.exports = function(context) {
 	var tag = "EXPIRES";
 	var invalidTimeError = "Invalid date!";
 	var timeZoneError = "You must define a timezone!";
-	var expiredError = "eslint/Expires!";
+	var expiredError = "Expires date!";
 	var currentError = null;
 	var expiredAsMilliseconds = 0;
 
@@ -26,7 +26,7 @@ module.exports = function(context) {
 	function getExpireDateValidity(node) {
     var value = node.value.trim();
     var expiredDate = value.split(": ")[1]
-    var isValidDate = /(\d{4}-\d{2}-\d{2})(T\d{2}:\d{2}?(:\d{2})?(.\d{3})?(Z|[+-]\d{2}:\d{2})?)?$/.exec(expiredDate);
+    var isValidDate = /(\d{4}-\d{2}-\d{2})(T\d{2}:\d{2}?(:\d{1,2})?(.\d{1,3})?(Z|[+-]\d{2}:\d{2})?)?$/.exec(expiredDate);
 
     if (isValidDate === null) {
       currentError = invalidTimeError;
