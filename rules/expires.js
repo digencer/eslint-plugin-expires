@@ -12,8 +12,13 @@ module.exports = function(context) {
 	var currentError = null;
 	var expiredAsMilliseconds = 0;
 
+	function trimAllSpacesAndStars(str) {
+    return str.replace(/\*/g, "") // remove astricks
+      .replace(/^\s+|\s+$/g, ""); // remove all white space including new lines
+  }
+
 	function checkCommentValidity(node) {
-    var value = node.value.trim();
+    var value = trimAllSpacesAndStars(node.value);
     if (value.length === 0) {
       return;
     } else if (value.split(": ")[0] !== tag) {
@@ -24,8 +29,9 @@ module.exports = function(context) {
 	}
 
 	function getExpireDateValidity(node) {
-    var value = node.value.trim();
-    var expiredDate = value.split(": ")[1]
+    var value = trimAllSpacesAndStars(node.value);
+    var expiredDatePlus = value.split(": ")[1];
+    var expiredDate = expiredDatePlus.match(/(^\S*)/)[0]; // take all before first space or new line
     var isValidDate = /(\d{4}-\d{2}-\d{2})(T\d{2}:\d{2}?(:\d{1,2})?(.\d{1,3})?(Z|[+-]\d{2}:\d{2})?)?$/.exec(expiredDate);
 
     if (isValidDate === null) {
@@ -49,17 +55,20 @@ module.exports = function(context) {
     context.report(node, reason);
   }
 
-  return {
-    "LineComment": function(node) {
-      if (checkCommentValidity(node) && getExpireDateValidity(node)) {
-        var currentTime = Date.now();
-        if (expiredAsMilliseconds <= currentTime) {
-          displayError(node, expiredError);
-        }
-      } else if (currentError !== null) {
-        displayError(node, currentError);
+  function checkForExpires(node) {
+    if (checkCommentValidity(node) && getExpireDateValidity(node)) {
+      var currentTime = Date.now();
+      if (expiredAsMilliseconds <= currentTime) {
+        displayError(node, expiredError);
       }
+    } else if (currentError !== null) {
+      displayError(node, currentError);
     }
+  }
+
+  return {
+    "LineComment": checkForExpires,
+    "BlockComment": checkForExpires
   };
 };
 
