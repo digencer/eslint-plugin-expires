@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-expires",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An ESLint plugin that warns on and after a specified date/time ",
   "main": "index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   "author": "Dilek Gencer",
   "license": "MIT",
   "peerDependencies": {
-    "eslint": "^1.10.3"
+    "eslint": "1.10.3"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/digencer/eslint-plugin-expires#readme",
   "devDependencies": {
-    "eslint": "^1.10.3"
+    "eslint": "1.10.3"
   }
 }
