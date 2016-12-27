@@ -27,13 +27,29 @@ ruleTester.run("Expires", rule, {
 		{ code: "// EXPIRES: "+partsOfDate[1]+partsOfDate[2]+partsOfDate[3]+partsOfDate[4]+partsOfDate[5]+partsOfDate[6]+partsOfDate[7] },
 		{ code: "// EXPIRES: "+partsOfDate[1]+partsOfDate[2]+partsOfDate[3]+partsOfDate[4]+partsOfDate[5]+".34"+partsOfDate[7] },
 		{ code: "// EXPIRES: "+partsOfDate[1]+partsOfDate[2]+partsOfDate[3]+partsOfDate[4]+"+01:00"},
+    { code: "/* EXPIRES: "+partsOfDate[1]+" */" },
+    { code: "/* " +
+		"* EXPIRES: "+partsOfDate[1]+" " +
+		"*/" },
+    { code: "/**\n" +
+    " * EXPIRES: "+partsOfDate[1]+"\n" +
+    " */" },
 	],
     invalid: [
     	{ code: "// EXPIRES: 06-04-1990Z", errors: [{ message: "Invalid date!"}] },
     	{ code: "// EXPIRES: 06-04-1990T20Z", errors: [{ message: "Invalid date!"}] },
-        { code: "// EXPIRES: 06-04-1990", errors: [{ message: "Invalid date!"}] },
-        { code: "// EXPIRES: 2015-12-20T02:00", errors: [{ message: "You must define a timezone!"}] },
-        { code: "// EXPIRES: 1992-08-09T02:00Z", errors: [{ message: "Expires date!"}] },
-        { code: "// EXPIRES: 2016-15-16T02:00Z", errors: [{ message: "Invalid date!"}]}
+			{ code: "// EXPIRES: 06-04-1990", errors: [{ message: "Invalid date!"}] },
+			{ code: "// EXPIRES: 2015-12-20T02:00", errors: [{ message: "You must define a timezone!"}] },
+			{ code: "// EXPIRES: 1992-08-09T02:00Z", errors: [{ message: "Expires date!"}] },
+			{ code: "// EXPIRES: 2016-15-16T02:00Z", errors: [{ message: "Invalid date!"}]},
+      { code: "/* EXPIRES: 2016-15-16T02:00Z */", errors: [{ message: "Invalid date!"}]},
+      { code: "/* EXPIRES: 1992-08-09T02:00Z */", errors: [{ message: "Expires date!"}]},
+      { code: "/**\n" +
+      " * EXPIRES: 1992-08-09T02:00Z\n" +
+      " */", errors: [{ message: "Expires date!"}]},
+      { code: "/**\n" +
+      " * EXPIRES: 1992-01-01\n" +
+			" * TODO: what \n" +
+      " */", errors: [{ message: "Expires date!"}]},
     ]
 });
